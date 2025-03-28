@@ -1,0 +1,264 @@
+/* Global Settings */
+html {
+  font-size: 16px;
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(135deg, #e0f7fa, #f3f4f6);
+  color: #333;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Layout Container */
+.layout-container {
+  width: 100%;
+  max-width: 1100px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+/* Main Content */
+main {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.project-container {
+  margin-bottom: 2rem;
+}
+
+.project-container h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2563eb;
+  margin-bottom: 1rem;
+}
+
+.project-steps {
+  margin-bottom: 2rem;
+}
+
+.project-step {
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.project-step h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.75rem;
+}
+
+.project-step p {
+  font-size: 1rem;
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+.project-step .code-snippet {
+  background-color: #f3f4f6;
+  padding: 1rem;
+  border-radius: 8px;
+  font-family: "Courier New", Courier, monospace;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.project-step .resources {
+  margin-top: 1rem;
+  color: #2563eb;
+}
+
+.next-action {
+  background-color: #eef2f7;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.next-action h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.next-action p {
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+/* Input Form Styles */
+.input-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.input-field {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-field:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+}
+
+.submit-btn {
+  padding: 1rem;
+  margin-left: 1rem;
+  background-color: #2563eb;
+  color: white;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submit-btn:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+.submit-btn:disabled {
+  background-color: #e5e7eb;
+  cursor: not-allowed;
+}
+
+/* Markdown Rendering Styles */
+.markdown {
+  line-height: 1.75;
+  color: #333;
+}
+
+.markdown p {
+  margin-bottom: 1.25rem;
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3 {
+  color: #111827;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.markdown pre {
+  background-color: #f3f4f6;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.markdown blockquote {
+  background-color: #eef2f7;
+  padding: 1rem;
+  border-left: 4px solid #2563eb;
+  margin-bottom: 1.5rem;
+}
+
+.markdown a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.markdown a:hover {
+  text-decoration: underline;
+}
+
+/* Heading Styling */
+h1 {
+  position: absolute;
+  left: 25px;
+  top: 25px;
+  font-size: 50px;
+  font-weight: 700;
+  color: #333;
+}
+
+/* Transition Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  .layout-container {
+    padding: 1rem;
+  }
+
+  main {
+    padding: 1.5rem;
+  }
+
+  .project-container h2 {
+    font-size: 1.75rem;
+  }
+
+  .project-step {
+    padding: 1rem;
+  }
+
+  .input-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .input-field {
+    margin-bottom: 1rem;
+  }
+
+  .submit-btn {
+    margin-left: 0;
+    width: 100%;
+  }
+}
