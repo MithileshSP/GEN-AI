@@ -1,192 +1,81 @@
-/* General Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-image: linear-gradient(to right, gray 0%, white 100%);
-    color: #333;
-    padding: 20px;
-    
-  }
-  
-  .layout-container {
-    width: 100%;
-    max-width: 900px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    
-  }
-  
-  /* Quote Container */
-  .quote-container {
-    background-color: #fff;
-    padding: 40px 35px;
-    border-radius: 12px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    width: 90%;
-    margin-bottom: 25px;
-    animation: fadeIn 0.6s ease-in-out;
-    transition: transform 0.3s ease-in-out;
-    font-family: "Great Vibes", cursive;
-    font-size: 50px;
-    font-style: normal;
-  }
-  
-  .quote-container:hover {
-    transform: scale(1.02); /* Slight zoom effect on hover */
-  }
-  
-  /* Quote Text */
-  .quote-text {
-    font-size: 28px;
-    font-weight: 600;
-    color: #333;
-    line-height: 1.5;
-    margin-bottom: 20px;
-    font-style: italic;
-  }
-  
-  /* Author */
-  .quote-author {
-    font-size: 18px;
-    color: #666;
-    font-style: italic;
-    margin-top: 10px;
-    letter-spacing: 0.5px;
-  }
-  
-  /* Button */
-  .generate-btn {
-    background-image: linear-gradient(to right, gray 0%, white 100%);
-    color: #fff;
-    border: none;
-    padding: 14px 28px;
-    border-radius: 6px;
-    font-size: 18px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 30px;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .generate-btn:hover {
-    transform: translateY(-4px);
-    background-color: #007bff; /* Slightly darker on hover */
-  }
-  
-  .generate-btn:focus {
-    outline: none;
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
-  }
-  
-  /* Keyframes for Fade-in Animation */
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* Responsive Styles */
-  @media (max-width: 768px) {
-    .quote-container {
-      padding: 30px;
-    }
-  
-    .quote-text {
-      font-size: 24px;
-    }
-  
-    .quote-author {
-      font-size: 16px;
-    }
-  
-    .generate-btn {
-      padding: 12px 24px;
-      font-size: 16px;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .quote-container {
-      padding: 20px;
-    }
-  
-    .quote-text {
-      font-size: 20px;
-    }
-  
-    .quote-author {
-      font-size: 14px;
-    }
-  
-    .generate-btn {
-      padding: 10px 20px;
-      font-size: 14px;
-    }
-  }
-  
-  /* User input and submit button styling */
-  .input-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 800px; /* Ensure input container doesn't get too wide */
-    margin-top: 20px; /* Space between quote and input */
-  }
-  
-  .input-field {
-    height: 40px; /* Adjusted height */
-    width: 75%; /* Make the input box take up most of the space */
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: 1px solid #ddd; /* Subtle border */
-    margin-right: 10px; /* Space between input and button */
-  }
-  
-  .input-field:focus {
-    outline: none;
-    border-color: #4facfe; /* Change border color on focus */
-  }
-  
-  .submit-btn {
-    padding: 12px 25px;
-    font-size: 16px;
-    background-color: #4facfe;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-  }
-  
-  .submit-btn:hover {
-    transform: translateY(-4px);
-    background-color: #00f2fe; /* Slightly lighter on hover */
-  }
-  
-  .submit-btn:focus {
-    outline: none;
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
-  }
-  
+/* Use the font variable for text */
+body {
+  font-family: var(--font-great-vibes), cursive;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.quote-container {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.quote {
+  font-size: 1.8rem;
+  line-height: 1.5;
+  color: #333;
+}
+
+.input-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.input-field {
+  color: #333;
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.submit-btn {
+  background-color: #4a6fa5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.submit-btn:hover {
+  background-color: #3a5a8c;
+}
+
+.submit-btn svg {
+  width: 20px;
+  height: 20px;
+}

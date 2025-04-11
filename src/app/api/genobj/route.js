@@ -2,9 +2,9 @@ import { generateObject } from "ai";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { z } from "zod";
 
-// Initialize the Google Generative AI client with your API key
+// Initialize the Google Generative AI client with the correct environment variable
 const google = createGoogleGenerativeAI({
-  apiKey: "AIzaSyDg9tiwQGQcJbSCZvHn4QxN1w8UvYR1-RM", // Replace this with your actual Google API key
+  apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY, // Fixed API key reference
 });
 
 // Define a schema to validate the instructional response for project guidance
@@ -21,12 +21,15 @@ const projectSchema = z.object({
   nextAction: z.string().optional(),
 });
 
-export async function handleGenerateProject(userInput) {
+export async function POST(request) {
   try {
-    // Step 1: Log the user's input (project idea) into chat history
+    // Extract the user input from the request
+    const { userInput } = await request.json();
+    
+    // Log the user's input (project idea)
     console.log("User project idea:", userInput);
 
-    // Step 2: Construct a prompt asking the AI to break the project down into manageable steps
+    // Construct a prompt asking the AI to break the project down into manageable steps
     const prompt = `
     Generate a step-by-step guide for building a project on the following topic if the user gives any irrelavent thing say give me a valid topic: 
     "${userInput}"
@@ -39,22 +42,55 @@ export async function handleGenerateProject(userInput) {
       3. (Optional) Code snippets for the step
       4. (Optional) Links or resources to help with the step
     - Suggested next action after completing the project (if applicable).
-    
     `;
 
-    // Step 3: Call the AI model to generate the project breakdown
+    // Call the AI model to generate the project breakdown
     const generatedProjectGuide = await generateObject({
-      model: google("gemini-1.5-flash"), // AI model for generating the response
-      schema: projectSchema, // Validate the response using the project schema
-      prompt: prompt, // Send the user's project idea as a prompt
+      model: google("gemini-1.5-flash"),
+      schema: projectSchema,
+      prompt: prompt,
       system:
         "you are a chatbot which gives idea on project development,for any input which is other than a valid project title",
     });
 
-    // Step 4: Return the project guide breakdown
-    return generatedProjectGuide.object;
+    // Return the project guide breakdown as a JSON response
+    return new Response(JSON.stringify({ projectData: generatedProjectGuide.object }), {
+      headers: { 'Content-Type': 'application/json' },
+    });
   } catch (error) {
+    console.error("Error generating project guide:", error);
+    return new Response(
+      JSON.stringify({
+        error: "Could not generate a project guide at this time.",
+        projectData: {
+          projectTitle: "Error: Could not generate a project guide.",
+          breakdownSteps: [],
+          nextAction: "",
+        }
+      }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+}
 
+// Keep this function for compatibility with existing code, but it's not directly used by the API route
+export async function handleGenerateProject(userInput) {
+  try {
+    const response = await fetch('/api/genobj', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userInput }),
+    });
+    
+    const data = await response.json();
+    if (response.ok) {
+      return data.projectData;
+    } else {
+      throw new Error(data.error || "Failed to generate project guide");
+    }
+  } catch (error) {
     console.error("Error generating project guide:", error);
     return {
       projectTitle: "Error: Could not generate a project guide.",

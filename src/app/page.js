@@ -16,9 +16,9 @@ export default function Home() {
         <li>
           <Link href="/generate_object">GENERATE OBJECT</Link>
         </li>
-        {/* <li>
+        <li>
           <Link href="/stream_object">STREAM OBJECT</Link>
-        </li> */}
+        </li>
       </ul>
     </nav>
     <body>    

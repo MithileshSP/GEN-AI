@@ -2,14 +2,13 @@ import { generateText } from "ai";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 
 const google = createGoogleGenerativeAI({
-  apiKey: "AIzaSyDg9tiwQGQcJbSCZvHn4QxN1w8UvYR1-RM",
+  apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
 });
 
-let chatHistory = [];
-
-export async function handleGenerateText(userInput) {
+export async function POST(request) {
   try {
-    chatHistory.push({ role: "user", content: userInput });
+    const { userInput } = await request.json();
+    
     const prompt = `
     Generate an inspirational or thought-provoking quote based on the following input: 
     "${userInput}"
@@ -22,11 +21,14 @@ export async function handleGenerateText(userInput) {
       temperature: 0.7,
     });
 
-    chatHistory.push({ role: "ai", content: text });
-
-    return text;
+    return new Response(JSON.stringify({ quote: text }), {
+      headers: { 'Content-Type': 'application/json' },
+    });
   } catch (error) {
     console.error("Error fetching Gemini AI response:", error);
-    return "Error: Could not fetch a quote at this time.";
+    return new Response(
+      JSON.stringify({ error: "Could not fetch a quote at this time." }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
   }
 }
