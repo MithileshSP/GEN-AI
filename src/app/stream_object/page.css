@@ -141,3 +141,26 @@ footer {
     padding: 8px;
   }
 }
+/* Add these styles to your CSS files (gen.css, ge.css, and page.css) */
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.home-button {
+  padding: 8px 16px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.home-button:hover {
+  background-color: #ddd;
+}

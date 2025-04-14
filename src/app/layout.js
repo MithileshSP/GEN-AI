@@ -8,10 +8,38 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body >{children}</body> 
-
-
-      
+      <body>
+        {children}
+        <PageReloaderWrapper />
+      </body>
     </html>
+  );
+}
+
+// Client component wrapper to avoid making the entire layout a client component
+function PageReloaderWrapper() {
+  return (
+    <>
+      {/* This script component will be rendered on the client side */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              // When a page is loaded:
+              const lastPath = sessionStorage.getItem('lastPath');
+              const currentPath = window.location.pathname;
+              
+              if (lastPath && lastPath !== currentPath) {
+                // We've navigated from a different page - reload
+                window.location.reload();
+              }
+              
+              // Save the current path for next navigation check
+              sessionStorage.setItem('lastPath', currentPath);
+            })();
+          `,
+        }}
+      />
+    </>
   );
 }

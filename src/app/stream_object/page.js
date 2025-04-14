@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import "./page.css";
 
 export default function ContentCreatorAssistant() {
@@ -10,6 +11,19 @@ export default function ContentCreatorAssistant() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [retryInfo, setRetryInfo] = useState({ isRetrying: false, countdown: 0 });
+
+  // Auto-reload when page is loaded
+  useEffect(() => {
+    // Reload only if coming from a different page (not initial load)
+    const isNavigated = sessionStorage.getItem('navigated');
+    if (isNavigated === 'true') {
+      window.location.reload();
+      sessionStorage.removeItem('navigated');
+    } else {
+      // Set flag for future navigation
+      sessionStorage.setItem('pageLoaded', 'true');
+    }
+  }, []);
 
   // Countdown effect for retry
   useEffect(() => {
@@ -146,9 +160,17 @@ export default function ContentCreatorAssistant() {
     setError("Retry canceled.");
   };
 
+  // When navigating away, set the navigated flag
+  const handleNavigation = () => {
+    sessionStorage.setItem('navigated', 'true');
+  };
+
   return (
     <div className="container">
-      <h1>Content Creator Assistant</h1>
+      <div className="header-container">
+        <h1>Content Creator Assistant</h1>
+        <Link href="/" className="home-button" onClick={handleNavigation}>HOME</Link>
+      </div>
       <form onSubmit={fetchContentInfo}>
         <div>
           <label htmlFor="platform">Choose a Platform:</label>

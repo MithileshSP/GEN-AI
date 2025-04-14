@@ -262,3 +262,27 @@ h1 {
     width: 100%;
   }
 }
+/* Add these styles to your CSS files (gen.css, ge.css, and page.css) */
+.header-container {
+  position: relative; /* Add this if it’s not already */
+  width: 100%;
+}
+
+/* Position the Home button absolutely in the top-right */
+.home-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 8px 16px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  z-index: 10; /* Optional: ensure it's above other elements */
+}
+
+.home-button:hover {
+  background-color: #ddd;
+}

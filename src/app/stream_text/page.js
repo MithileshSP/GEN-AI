@@ -3,6 +3,7 @@
 import { useChat } from "ai/react";
 import Markdown from "react-markdown";
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import "./st.css";
 
 export default function Chat() {
@@ -11,6 +12,19 @@ export default function Chat() {
   });
 
   const chatContainerRef = useRef(null);
+
+  // Auto-reload when page is loaded
+  useEffect(() => {
+    // Reload only if coming from a different page (not initial load)
+    const isNavigated = sessionStorage.getItem('navigated');
+    if (isNavigated === 'true') {
+      window.location.reload();
+      sessionStorage.removeItem('navigated');
+    } else {
+      // Set flag for future navigation
+      sessionStorage.setItem('pageLoaded', 'true');
+    }
+  }, []);
 
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -39,10 +53,18 @@ export default function Chat() {
     handleSubmit(e);
   };
 
+  // When navigating away, set the navigated flag
+  const handleNavigation = () => {
+    sessionStorage.setItem('navigated', 'true');
+  };
+
   return (
     <div className="layout-container">
       <header className="header">
-        <h1 className="heading">Python Code Generator</h1>
+        <div className="header-container">
+          <h1 className="heading">Python Code Generator</h1>
+          <Link href="/" className="home-button" onClick={handleNavigation}>HOME</Link>
+        </div>
       </header>
       <div className="chat-container flex flex-col w-full max-w-md mx-auto stretch" ref={chatContainerRef}>
         {messages && Array.isArray(messages) && messages.map((m) => (

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Markdown from "react-markdown";
+import Link from "next/link";
 import './ge.css';
 
 export default function Home() {
@@ -14,6 +15,19 @@ export default function Home() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const chatContainerRef = useRef(null);
+
+  // Auto-reload when page is loaded
+  useEffect(() => {
+    // Reload only if coming from a different page (not initial load)
+    const isNavigated = sessionStorage.getItem('navigated');
+    if (isNavigated === 'true') {
+      window.location.reload();
+      sessionStorage.removeItem('navigated');
+    } else {
+      // Set flag for future navigation
+      sessionStorage.setItem('pageLoaded', 'true');
+    }
+  }, []);
 
   /**
    * Handle form submission to generate project guide
@@ -64,11 +78,18 @@ export default function Home() {
     }
   }, [projectData]);
 
+  // When navigating away, set the navigated flag
+  const handleNavigation = () => {
+    sessionStorage.setItem('navigated', 'true');
+  };
+
   return (
     <div className="layout-container">
-      <div id="proj"><h1>PROJIN</h1></div>
+      <div id="proj" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
+        <h1>PROJIN</h1>
+        <Link href="/" className="home-button" onClick={handleNavigation}>HOME</Link>
+      </div>
       <main>
-        {/* Display the generated project guide */}
         <div className="project-container" ref={chatContainerRef}>
           <h2>{projectData.projectTitle}</h2>
           <div className="project-steps">

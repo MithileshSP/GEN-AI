@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Markdown from "react-markdown";
+import Link from "next/link";
 import './gen.css';
 
 export default function Home() {
@@ -9,6 +10,19 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
   const chatContainerRef = useRef(null);
+
+  // Auto-reload when page is loaded
+  useEffect(() => {
+    // Reload only if coming from a different page (not initial load)
+    const isNavigated = sessionStorage.getItem('navigated');
+    if (isNavigated === 'true') {
+      window.location.reload();
+      sessionStorage.removeItem('navigated');
+    } else {
+      // Set flag for future navigation
+      sessionStorage.setItem('pageLoaded', 'true');
+    }
+  }, []);
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,8 +61,17 @@ export default function Home() {
     }
   }, [quote]);
 
+  // When navigating away, set the navigated flag
+  const handleNavigation = () => {
+    sessionStorage.setItem('navigated', 'true');
+  };
+
   return (
     <div className="layout-container">
+      <div className="header-container">
+        <h1>Qoute Generator</h1>
+        <Link href="/" className="home-button" onClick={handleNavigation}>HOME</Link>
+      </div>
       <main>
         {/* Quote Display */}
         <div className="quote-container" ref={chatContainerRef}>
